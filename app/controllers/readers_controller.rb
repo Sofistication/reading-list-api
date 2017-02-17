@@ -20,7 +20,7 @@ class ReadersController < ApplicationController
     @reader = Reader.new(reader_params)
 
     if @reader.save
-      render json: @reader, status: :created, location: @reader
+      render json: @reader, status: :created
     else
       render json: @reader.errors, status: :unprocessable_entity
     end
@@ -29,7 +29,7 @@ class ReadersController < ApplicationController
   # PATCH/PUT /readers/1
   def update
     if @reader.update(reader_params)
-      render json: @reader
+      rhead :no_content
     else
       render json: @reader.errors, status: :unprocessable_entity
     end

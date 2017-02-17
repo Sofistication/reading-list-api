@@ -54,20 +54,20 @@ RSpec.describe ReadersController, type: :controller do
     end
   end
 
-  describe 'GET #new' do
-    it 'assigns a new reader as @reader' do
-      get :new, params: {}, session: valid_session
-      expect(assigns(:reader)).to be_a_new(Reader)
-    end
-  end
-
-  describe 'GET #edit' do
-    it 'assigns the requested reader as @reader' do
-      reader = Reader.create! valid_attributes
-      get :edit, params: {id: reader.to_param}, session: valid_session
-      expect(assigns(:reader)).to eq(reader)
-    end
-  end
+  # describe 'GET #new' do
+  #   it 'assigns a new reader as @reader' do
+  #     get :new, params: {}, session: valid_session
+  #     expect(assigns(:reader)).to be_a_new(Reader)
+  #   end
+  # end
+  #
+  # describe 'GET #edit' do
+  #   it 'assigns the requested reader as @reader' do
+  #     reader = Reader.create! valid_attributes
+  #     get :edit, params: {id: reader.to_param}, session: valid_session
+  #     expect(assigns(:reader)).to eq(reader)
+  #   end
+  # end
 
   describe 'POST #create' do
     context 'with valid params' do
@@ -95,10 +95,10 @@ RSpec.describe ReadersController, type: :controller do
         expect(assigns(:reader)).to be_a_new(Reader)
       end
 
-      it 're-renders the 'new' template' do
-        post :create, params: {reader: invalid_attributes}, session: valid_session
-        expect(response).to render_template('new')
-      end
+      # it 're-renders the 'new' template' do
+      #   post :create, params: {reader: invalid_attributes}, session: valid_session
+      #   expect(response).to render_template('new')
+      # end
     end
   end
 
@@ -135,11 +135,11 @@ RSpec.describe ReadersController, type: :controller do
         expect(assigns(:reader)).to eq(reader)
       end
 
-      it 're-renders the 'edit' template' do
-        reader = Reader.create! valid_attributes
-        put :update, params: {id: reader.to_param, reader: invalid_attributes}, session: valid_session
-        expect(response).to render_template('edit')
-      end
+      # it 're-renders the 'edit' template' do
+      #   reader = Reader.create! valid_attributes
+      #   put :update, params: {id: reader.to_param, reader: invalid_attributes}, session: valid_session
+      #   expect(response).to render_template('edit')
+      # end
     end
   end
 
@@ -147,15 +147,14 @@ RSpec.describe ReadersController, type: :controller do
     it 'destroys the requested reader' do
       reader = Reader.create! valid_attributes
       expect {
-        delete :destroy, params: {id: reader.to_param}, session: valid_session
+        delete :destroy, params: { id: reader.to_param }, session: valid_session
       }.to change(Reader, :count).by(-1)
     end
 
     it 'redirects to the readers list' do
       reader = Reader.create! valid_attributes
-      delete :destroy, params: {id: reader.to_param}, session: valid_session
+      delete :destroy, params: { id: reader.to_param }, session: valid_session
       expect(response).to redirect_to(readers_url)
     end
   end
-
 end

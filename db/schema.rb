@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170217012455) do
+ActiveRecord::Schema.define(version: 20170215210350) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,19 +19,11 @@ ActiveRecord::Schema.define(version: 20170217012455) do
     t.string   "title",        null: false
     t.string   "author",       null: false
     t.integer  "published_in", null: false
+    t.integer  "user_id",      null: false
     t.text     "description"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
-  end
-
-  create_table "entries", force: :cascade do |t|
-    t.string   "list"
-    t.integer  "reader_id",  null: false
-    t.integer  "book_id",    null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["book_id"], name: "index_entries_on_book_id", using: :btree
-    t.index ["reader_id"], name: "index_entries_on_reader_id", using: :btree
+    t.index ["user_id"], name: "index_books_on_user_id", using: :btree
   end
 
   create_table "examples", force: :cascade do |t|
@@ -40,13 +32,6 @@ ActiveRecord::Schema.define(version: 20170217012455) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_examples_on_user_id", using: :btree
-  end
-
-  create_table "readers", force: :cascade do |t|
-    t.string   "given_name",  null: false
-    t.string   "family_name"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -59,7 +44,6 @@ ActiveRecord::Schema.define(version: 20170217012455) do
     t.index ["token"], name: "index_users_on_token", unique: true, using: :btree
   end
 
-  add_foreign_key "entries", "books"
-  add_foreign_key "entries", "readers"
+  add_foreign_key "books", "users"
   add_foreign_key "examples", "users"
 end

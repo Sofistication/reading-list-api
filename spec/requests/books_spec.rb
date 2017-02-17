@@ -3,11 +3,32 @@
 require 'rails_helper'
 
 RSpec.describe 'Books', type: :request do
+  def user_params
+    {
+      email: 'alice@example.com',
+      password: 'foobarbaz',
+      password_confirmation: 'foobarbaz'
+    }
+  end
+
+  def user_auth
+    post '/sign-up', params: { credentials: user_params }
+    post '/sign-in', params: { credentials: user_params }
+    JSON.parse(response.body)['user']
+  end
+
+  def headers
+    {
+      'HTTP_AUTHORIZATION' => "Token token=#{user_auth['token']}"
+    }
+  end
+
   def book_params
     {
       title: '1984',
       author: 'George Orwell',
-      published_in: 1949
+      published_in: 1949,
+      user: User.find(user_auth['id'])
     }
   end
 
@@ -21,6 +42,7 @@ RSpec.describe 'Books', type: :request do
 
   after(:all) do
     Book.delete_all
+    User.delete_all
   end
 
   describe 'GET index' do
@@ -38,7 +60,7 @@ RSpec.describe 'Books', type: :request do
   end
 
   describe 'GET show' do
-    before(:each) { get "/books/#{book.id}" }
+    before(:each) { get "/books/#{book.id}", headers: headers }
     it 'is successful' do
       expect(response.status).to eq(200)
     end
@@ -59,7 +81,7 @@ RSpec.describe 'Books', type: :request do
     # before(:each) { delete :destroy, id: book.id }
     it 'is successful and returns an empty response' do
       book_id = book.id
-      delete "/books/#{book.id}"
+      delete "/books/#{book.id}", headers: headers
 
       expect(response.status).to eq(204)
 
@@ -80,9 +102,7 @@ RSpec.describe 'Books', type: :request do
     end
 
     before(:each) do
-      patch :update, params: { id: book.id, book: book_diff },
-                     format: :json
-      # patch :update, id: book.id, book: book_diff
+      patch "/books/#{book.id}", params: { book: book_diff }, headers: headers
     end
 
     it 'is successful' do
@@ -106,7 +126,8 @@ RSpec.describe 'Books', type: :request do
     end
 
     before(:each) do
-      post :create, params: { book: new_book }, format: :json
+      puts new_book
+      post '/books', params: { book: new_book }, headers: headers
     end
 
     it 'is successful' do
@@ -114,7 +135,7 @@ RSpec.describe 'Books', type: :request do
     end
 
     it 'renders a JSON response' do
-      book_response = JSON.parse(response.body)
+      book_response = JSON.parse(response.body)['book']
 
       expect(book_response['title']).to eq(new_book[:title])
       expect(book_response['id']).not_to be_nil

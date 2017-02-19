@@ -77,6 +77,18 @@ RSpec.describe 'Books', type: :request do
     end
   end
 
+  describe 'GET list' do
+    before(:each) { get '/list', headers: headers }
+    it 'is succesful' do
+      expect(response.status).to eq(200)
+    end
+
+    it 'renders a JSON response' do
+      book_response = JSON.parse(response.body)['books']
+      expect(book_response).not_to be_nil
+    end
+  end
+
   describe 'DELETE destroy' do
     # before(:each) { delete :destroy, id: book.id }
     it 'is successful and returns an empty response' do

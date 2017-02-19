@@ -17,3 +17,24 @@
 #                password: 'abc123',
 #                password_confirmation: nil)
 # end
+
+# example user for basic development
+user_params = {
+  email: 'test@book.next',
+  password: 'test',
+  password_confirmation: 'test'
+}
+User.create!(user_params)
+user2_params = {
+  email: 'test2@book.next',
+  password: 'test',
+  password_confirmation: 'test'
+}
+User.create!(user2_params)
+
+%w(BookOne BookTwo BookThree BookFour BookFive BookSix BookSeven).each do |book|
+  Book.create!(title: book,
+               author: 'Maynard Ingram',
+               published_in: 2017,
+               user: User.all.sample)
+end

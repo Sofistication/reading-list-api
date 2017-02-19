@@ -10,8 +10,8 @@ class BooksController < OpenReadController
     render json: @books
   end
 
-  # GET /list
-  def list
+  # GET /lists
+  def lists
     @books = current_user.books
 
     render json: @books

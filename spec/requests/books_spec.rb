@@ -77,8 +77,8 @@ RSpec.describe 'Books', type: :request do
     end
   end
 
-  describe 'GET list' do
-    before(:each) { get '/list', headers: headers }
+  describe 'GET lists' do
+    before(:each) { get '/lists', headers: headers }
     it 'is succesful' do
       expect(response.status).to eq(200)
     end

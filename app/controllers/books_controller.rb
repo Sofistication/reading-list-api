@@ -10,6 +10,14 @@ class BooksController < OpenReadController
     render json: @books
   end
 
+  # GET/books/list
+  # TODO: route to this
+  def list
+    @books = current_user.books
+
+    render json: @books
+  end
+
   # GET /books/1
   def show
     render json: Book.find(params[:id])

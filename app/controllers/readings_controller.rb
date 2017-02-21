@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ReadingsController < ProtectedController
-  before_action :set_reading, only: [:show, :update, :destroy]
+  before_action :set_reading, only: [:update, :destroy]
 
   # # GET /readings
   # def index
@@ -17,9 +17,12 @@ class ReadingsController < ProtectedController
 
   # POST /readings
   def create
-    @reading = Reading.new(reading_params)
+    @reading = current_user.readings.build(reading_params)
 
-    if @reading.save
+    if Reading.exists?(user_id: current_user.id,
+                       book_id: reading_params[:book_id])
+      head :conflict
+    elsif @reading.save
       render json: @reading, status: :created
     else
       render json: @reading.errors, status: :unprocessable_entity
@@ -38,17 +41,19 @@ class ReadingsController < ProtectedController
   # DELETE /readings/1
   def destroy
     @reading.destroy
+
+    head :no_content
   end
 
   # Use callbacks to share common setup or constraints between actions.
   def set_reading
-    @reading = Reading.find(params[:id])
+    @reading = current_user.readings.find(params[:id])
   end
   private :set_reading
 
   # Only allow a trusted parameter "white list" through.
   def reading_params
-    params.require(:reading).permit(:user_id, :book_id, :list, :status)
+    params.require(:reading).permit(:book_id, :list, :status)
   end
   private :reading_params
 end

@@ -2,6 +2,10 @@
 
 API for lists used in [Book.next](https://github.com/Sofistication/book-next).
 
+## Breaking Changes
+
+Implementation of Readings changes the top level key of the `books#lists` action from `books` to `readings`
+
 ## API Endpoints
 
 | Verb | URI Pattern | Controller#Action |

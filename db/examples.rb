@@ -35,6 +35,16 @@ User.create!(user2_params)
 %w(BookOne BookTwo BookThree BookFour BookFive BookSix BookSeven).each do |book|
   Book.create!(title: book,
                author: 'Maynard Ingram',
-               published_in: 2017,
-               user: User.all.sample)
+               published_in: 2017)
+end
+
+20.times do
+  reading_params = {
+    user: User.all.sample,
+    book: Book.all.sample,
+    list: 'default',
+    status: 'unread'
+  }
+  next if Reading.exists? reading_params
+  Reading.create! reading_params
 end

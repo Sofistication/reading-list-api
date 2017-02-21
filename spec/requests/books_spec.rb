@@ -27,8 +27,7 @@ RSpec.describe 'Books', type: :request do
     {
       title: '1984',
       author: 'George Orwell',
-      published_in: 1949,
-      user: User.find(user_auth['id'])
+      published_in: 1949
     }
   end
 
@@ -138,7 +137,6 @@ RSpec.describe 'Books', type: :request do
     end
 
     before(:each) do
-      puts new_book
       post '/books', params: { book: new_book }, headers: headers
     end
 

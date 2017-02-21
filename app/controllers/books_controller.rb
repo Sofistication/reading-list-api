@@ -12,7 +12,7 @@ class BooksController < OpenReadController
 
   # GET /lists
   def lists
-    @books = current_user.books
+    @books = current_user.readings
 
     render json: @books
   end

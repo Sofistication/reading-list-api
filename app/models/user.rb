@@ -2,5 +2,6 @@
 class User < ApplicationRecord
   include Authentication
   has_many :examples
-  has_many :books, dependent: :destroy
+  has_many :books, through: :readings
+  has_many :readings
 end

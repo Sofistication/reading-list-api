@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170215210350) do
+ActiveRecord::Schema.define(version: 20170220224428) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,11 +19,9 @@ ActiveRecord::Schema.define(version: 20170215210350) do
     t.string   "title",        null: false
     t.string   "author",       null: false
     t.integer  "published_in", null: false
-    t.integer  "user_id",      null: false
     t.text     "description"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
-    t.index ["user_id"], name: "index_books_on_user_id", using: :btree
   end
 
   create_table "examples", force: :cascade do |t|
@@ -32,6 +30,17 @@ ActiveRecord::Schema.define(version: 20170215210350) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_examples_on_user_id", using: :btree
+  end
+
+  create_table "readings", force: :cascade do |t|
+    t.integer  "user_id",    null: false
+    t.integer  "book_id",    null: false
+    t.string   "list"
+    t.string   "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["book_id"], name: "index_readings_on_book_id", using: :btree
+    t.index ["user_id"], name: "index_readings_on_user_id", using: :btree
   end
 
   create_table "users", force: :cascade do |t|
@@ -44,6 +53,7 @@ ActiveRecord::Schema.define(version: 20170215210350) do
     t.index ["token"], name: "index_users_on_token", unique: true, using: :btree
   end
 
-  add_foreign_key "books", "users"
   add_foreign_key "examples", "users"
+  add_foreign_key "readings", "books"
+  add_foreign_key "readings", "users"
 end

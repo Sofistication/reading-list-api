@@ -19,7 +19,10 @@ class ReadingsController < ProtectedController
   def create
     @reading = current_user.readings.build(reading_params)
 
-    if @reading.save
+    if Reading.exists?(user_id: current_user.id,
+                       book_id: reading_params[:book_id])
+      head :conflict
+    elsif @reading.save
       render json: @reading, status: :created
     else
       render json: @reading.errors, status: :unprocessable_entity

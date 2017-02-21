@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 Rails.application.routes.draw do
-  resources :readings, except: [:new, :edit]
+  resources :readings, only: [:create, :update, :destroy]
   get '/lists' => 'books#lists'
   resources :books, except: [:new, :edit]
   resources :examples, except: [:new, :edit]

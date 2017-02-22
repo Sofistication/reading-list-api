@@ -2,10 +2,16 @@
 
 class BooksController < ProtectedController
   before_action :set_book, only: [:show, :update, :destroy]
+  has_scope :by_title
+  has_scope :by_author
 
   # GET /books
   def index
-    @books = Book.all
+    @books = if search_params
+               Book.where(search_params)
+             else
+               Book.all
+             end
 
     render json: @books
   end
@@ -61,4 +67,9 @@ class BooksController < ProtectedController
           .permit(:title, :author, :published_in, :description)
   end
   private :book_params
+
+  def search_params
+    params.permit(:title, :author)
+  end
+  private :search_params
 end

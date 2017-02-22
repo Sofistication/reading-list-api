@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ReadingsController < ProtectedController
-  before_action :set_reading, only: [:update, :destroy]
+  before_action :set_reading, only: [:show, :update, :destroy]
 
   # # GET /readings
   # def index

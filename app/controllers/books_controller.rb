@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-class BooksController < OpenReadController
-  before_action :set_book, only: [:update, :destroy]
+class BooksController < ProtectedController
+  before_action :set_book, only: [:show, :update, :destroy]
 
   # GET /books
   def index
@@ -19,12 +19,12 @@ class BooksController < OpenReadController
 
   # GET /books/1
   def show
-    render json: Book.find(params[:id])
+    render json: @book
   end
 
   # POST /books
   def create
-    @book = current_user.books.build(book_params)
+    @book = Books.new(book_params)
 
     if @book.save
       render json: @book, status: :created
@@ -51,7 +51,7 @@ class BooksController < OpenReadController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_book
-    @book = current_user.books.find(params[:id])
+    @book = Book.find(params[:id])
   end
   private :set_book
 

@@ -7,11 +7,11 @@ class BooksController < ProtectedController
 
   # GET /books
   def index
-    if search_params
-      @books = Book.where(search_params)
-    else
-      @books = Book.all
-    end
+    @books = if search_params
+               Book.where(search_params)
+             else
+               Book.all
+             end
 
     render json: @books
   end

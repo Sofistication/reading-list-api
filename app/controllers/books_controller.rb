@@ -2,8 +2,6 @@
 
 class BooksController < ProtectedController
   before_action :set_book, only: [:show, :update, :destroy]
-  has_scope :by_title
-  has_scope :by_author
 
   # GET /books
   def index

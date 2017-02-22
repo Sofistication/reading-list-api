@@ -6,9 +6,9 @@ class BooksController < ProtectedController
   # GET /books
   def index
     @books = if search_params
-               Book.where(search_params)
+               Book.where(search_params).order(author: :asc)
              else
-               Book.all
+               Book.all.order(author: :asc)
              end
 
     render json: @books
@@ -16,7 +16,7 @@ class BooksController < ProtectedController
 
   # GET /lists
   def lists
-    @books = current_user.readings
+    @books = current_user.readings.order(created_at: :asc)
 
     render json: @books
   end

@@ -10,10 +10,10 @@ class ReadingsController < ProtectedController
   #   render json: @readings
   # end
   #
-  # # GET /readings/1
-  # def show
-  #   render json: @reading
-  # end
+  # GET /readings/1
+  def show
+    render json: @reading
+  end
 
   # POST /readings
   def create

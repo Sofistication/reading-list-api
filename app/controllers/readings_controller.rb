@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ReadingsController < ProtectedController
-  before_action :set_reading, only: [:update, :destroy]
+  before_action :set_reading, only: [:show, :update, :destroy]
 
   # # GET /readings
   # def index
@@ -10,10 +10,10 @@ class ReadingsController < ProtectedController
   #   render json: @readings
   # end
   #
-  # # GET /readings/1
-  # def show
-  #   render json: @reading
-  # end
+  # GET /readings/1
+  def show
+    render json: @reading
+  end
 
   # POST /readings
   def create

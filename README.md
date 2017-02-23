@@ -17,6 +17,10 @@ Implementation of Readings changes the top level key of the `books#lists` action
 | GET | `/books` | `books#index` |
 | GET | `/books/:id` | `books#show` |
 | GET | `/lists` | `books#lists` |
+| POST | `/books` | `books#create` |
+| POST | `/readings` | `readings#create` |
+| PATCH | `/readings/:id` | `readings#update` |
+| DELETE | `/readings/:id` | `readings#destroy` |
 
 ## Book actions
 

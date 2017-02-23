@@ -37,14 +37,14 @@ class BooksController < ProtectedController
     end
   end
 
-  # PATCH/PUT /books/1
-  def update
-    if @book.update(book_params)
-      head :no_content
-    else
-      render json: @book.errors, status: :unprocessable_entity
-    end
-  end
+  # # PATCH/PUT /books/1
+  # def update
+  #   if @book.update(book_params)
+  #     head :no_content
+  #   else
+  #     render json: @book.errors, status: :unprocessable_entity
+  #   end
+  # end
 
   # DELETE /books/1
   def destroy

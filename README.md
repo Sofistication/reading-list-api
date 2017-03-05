@@ -89,6 +89,7 @@ Implementation of Readings changes the top level key of the `books#lists` action
 
 ## Book actions
 
+*Summary*
 <table>
 <tr>
   <th colspan="3">Request</th>
@@ -103,14 +104,14 @@ Implementation of Readings changes the top level key of the `books#lists` action
 </tr>
 <tr>
 <td>GET</td>
-<td>`/books`</td>
-<td><strong>search</strong> (optional)</td>
+<td>`/books[?title=<title>&author=<author>]`</td>
+<td>empty</td>
 <td>200, OK</td>
 <td><strong>books found</strong></td>
 </tr>
 <tr>
   <td colspan="3">
-  The optional `search` body restricts the response to games with a
+  The optional `search` parameters restrict the response to games with a
    matching `title`, `author` or both, depending on the query sent.
   </td>
   <td>200, OK</td>
@@ -151,7 +152,7 @@ Implementation of Readings changes the top level key of the `books#lists` action
 <td>`/books`</td>
 <td><strong>book</strong></td>
 <td>201 Created</td>
-<td>empty</td>
+<td><em>empty</em></td>
 </tr>
 <tr>
   <td colspan="3"></td>
@@ -161,6 +162,67 @@ Implementation of Readings changes the top level key of the `books#lists` action
 <tr>
 </table>
 
-## List actions
+## Readings actions
 
-To be filled
+*Summary*
+<table>
+<tr>
+  <th colspan="3">Request</th>
+  <th colspan="2">Response</th>
+</tr>
+<tr>
+  <th>Verb</th>
+  <th>URI</th>
+  <th>body</th>
+  <th>Status</th>
+  <th>body</th>
+</tr>
+<tr>
+<td>POST</td>
+<td>`/readings`</td>
+<td><strong>reading</strong></td>
+<td>201, Created</td>
+<td><em>empty</em></td>
+</tr>
+<tr>
+  <td colspan="3">
+  If the user already has a reading associated with the book, a new reading will not be created
+  </td>
+  <td>409 Conflict</td>
+  <td><em>empty</em></td>
+</tr>
+<tr>
+  <td colspan="3"></td>
+  <td>401 Unauthorized</td>
+  <td><em>empty</em></td>
+</tr>
+<tr>
+<td>DELETE</td>
+<td>`/readings/:id`</td>
+<td>empty</td>
+<td>201 Created</td>
+<td>empty</td>
+</tr>
+<tr>
+  <td colspan="3"></td>
+  <td>401 Unauthorized</td>
+  <td><em>empty</em></td>
+</tr>
+<tr>
+<td>PATCH</td>
+<td>`/readings/:id`</td>
+<td><strong>reading</strong></td>
+<td>204 No Content</td>
+<td><em>empty</em></td>
+</tr>
+<tr>
+  <td colspan="3"></td>
+  <td>400 Bad Request</td>
+  <td><em>empty</em></td>
+</tr>
+<tr>
+  <td colspan="3"></td>
+  <td>401 Unauthorized</td>
+  <td><em>empty</em></td>
+</tr>
+</table>

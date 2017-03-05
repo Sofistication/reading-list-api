@@ -104,7 +104,7 @@ Implementation of Readings changes the top level key of the `books#lists` action
 </tr>
 <tr>
 <td>GET</td>
-<td>`/books[?title=<title>&author=<author>]`</td>
+<td>`/books[?title=title&author=author]`</td>
 <td>empty</td>
 <td>200, OK</td>
 <td><strong>books found</strong></td>

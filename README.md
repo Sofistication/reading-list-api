@@ -135,6 +135,17 @@ Implementation of Readings changes the top level key of the `books#lists` action
   <td>401 Unauthorized</td>
   <td><em>empty</em></td>
 </tr>
+<td>GET</td>
+<td>`/lists`</td>
+<td>empty</td>
+<td>200, OK</td>
+<td><strong>user readings</strong></td>
+</tr>
+<tr>
+  <td colspan="3"></td>
+  <td>401, Unauthorized</td>
+  <td><em>empty</em></td>
+</tr>
 <tr>
 <td>POST</td>
 <td>`/books`</td>

@@ -89,7 +89,66 @@ Implementation of Readings changes the top level key of the `books#lists` action
 
 ## Book actions
 
-To be filled
+<table>
+<tr>
+  <th colspan="3">Request</th>
+  <th colspan="2">Response</th>
+</tr>
+<tr>
+  <th>Verb</th>
+  <th>URI</th>
+  <th>body</th>
+  <th>Status</th>
+  <th>body</th>
+</tr>
+<tr>
+<td>GET</td>
+<td>`/books`</td>
+<td><strong>search</strong> (optional)</td>
+<td>200, OK</td>
+<td><strong>books found</strong></td>
+</tr>
+<tr>
+  <td colspan="3">
+  The optional `search` body restricts the response to games with a
+   matching `title`, `author` or both, depending on the query sent.
+  </td>
+  <td>200, OK</td>
+  <td><em>empty books</em></td>
+</tr>
+<tr>
+  <td colspan="3">
+  The default is to retrieve all books stored in the database.
+  </td>
+  <td>401 Unauthorized</td>
+  <td><em>empty</em></td>
+</tr>
+<tr>
+<td>GET</td>
+<td>`/books/:id`</td>
+<td>empty</td>
+<td>200 OK</td>
+<td><strong>book</strong></td>
+</tr>
+<tr>
+  <td colspan="3"></td>
+  <td>401 Unauthorized</td>
+  <td><em>empty</em></td>
+</tr>
+<tr>
+<td>POST</td>
+<td>`/books`</td>
+<td><strong>book</strong></td>
+<td>201 Created</td>
+<td>empty</td>
+</tr>
+<tr>
+  <td colspan="3"></td>
+  <td>400 Bad Request</td>
+  <td><em>empty</em></td>
+</tr>
+<tr>
+</table>
 
 ## List actions
 

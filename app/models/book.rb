@@ -6,5 +6,5 @@ class Book < ApplicationRecord
 
   validates :title, presence: true
   validates :author, presence: true
-  validates :published_in, presence: true
+  validates :published_in, numericality: { only_integer: true }
 end
